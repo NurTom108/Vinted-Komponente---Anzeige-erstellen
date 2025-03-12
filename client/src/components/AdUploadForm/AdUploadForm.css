@@ -1,0 +1,522 @@
+
+:root {
+  --primary-color: #449967;
+  --primary-color-dark: #046932;
+  --secondary-color: #ffffff;
+  --background-gradient: #f376811c;
+  --form-background: #02853d17;
+  --input-border-color: #ccc;
+  --input-focus-color: #0b4eb3;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --dropdown-bg: #ffe4ec;
+  --dropdown-text-color: #333;
+  --dropdown-border-color: #f0f0f0;
+}
+
+/* schriftart von google*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap");
+
+
+/* GLOBAL RESET & BODY-STYLING */
+
+/* Alle Elemente ohne Margin/Padding, sowie Box-Sizing einstellen */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-gradient);
+  padding: 2rem;
+}
+
+
+/* CONTAINER & FORMULAR-STYLES */
+/* Anzeigen-Upload */
+.ad-upload-container {
+  width: 800px;
+  margin: 0 auto;
+  background-color: var(--form-background);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: var(--box-shadow);
+  border: 1px solid #e0e0e0;
+}
+
+
+/* PROGRESS-BAR */
+.progressbar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  counter-reset: step;
+}
+
+/* Hintergrundleiste vom fortschrittsbalkenb */
+.progressbar::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #fff;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+/* Fortschrittsanzeige (dynamische Breite) */
+.progress {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background-color: var(--primary-color);
+  transform: translateY(-50%);
+  z-index: 2;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress-step {
+  position: relative;
+  z-index: 3;
+  width: 35px;
+  height: 35px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #555;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Aktiver Schritt */
+.progress-step.active {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+/* Beschriftung unter den Schritt-Indikatoren */
+.progress-step::after {
+  content: attr(data-title);
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: #777;
+  white-space: nowrap;
+}
+
+
+/* FORM-STEPS & ANIMATION */
+
+.form-step {
+  display: none;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Aktiver Schritt anzeigen */
+.form-step.active {
+  display: block;
+}
+
+/* FadeIn Animation für Form-Schritte */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/*  EINGABEFELDER */
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+/* Fokus-Effekt */
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+  outline: none;
+  border-color: var(--input-focus-color);
+}
+
+.input-group textarea {
+  resize: vertical;
+  min-height: 200px;
+  max-height: 200px;
+}
+
+/* Datei-Upload */
+.input-group input[type="file"] {
+  padding: 0.5rem;
+  border: none;
+  font-size: 0.95rem;
+}
+
+
+.input-group input[type="file"]::-webkit-file-upload-button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.input-group input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+
+/* BUTTON-GRUPPEN */
+.btns-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.75rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+  margin: 0 0.25rem;
+}
+
+.btn:hover {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+
+
+@media (max-width: 480px) {
+  .ad-upload-container {
+    padding: 1.5rem;
+    width: 95%;
+  }
+  .btn {
+    font-size: 0.9rem;
+    padding: 0.65rem;
+  }
+}
+
+
+/* CUSTOM-DRPDOWN (rosa Look)*/
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  background-color: var(--dropdown-bg);
+  color: var(--dropdown-text-color);
+  border: 1px solid var(--dropdown-border-color);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.dropdown-toggle:hover {
+  background-color: #ffd6e7;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  min-width: 180px;
+  background-color: var(--secondary-color);
+  box-shadow: var(--box-shadow);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--dropdown-border-color);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 99;
+}
+
+.dropdown-menu li {
+  list-style: none;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.dropdown-menu li:not(:last-child) {
+  border-bottom: 1px solid var(--dropdown-border-color);
+}
+
+.dropdown-menu li:hover {
+  background-color: #f9f9f9;
+}
+
+/* Dropdown anzeigen beim Hover oder Fokussieren */
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* FEHLERMELDUNGEN & ERROR-STATES */
+.error-message {
+  color: #b92e2e;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid #f0b7b7;
+  background-color: #ffecec;
+  padding: 0.75rem;
+  border-radius: 4px;
+}
+
+.error-border {
+  border: 2px solid #b92e2e !important;
+  outline: none;
+}
+
+
+/* SHAKe-ANIMATION */
+.shake {
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+
+/* BILDER-VORSCHAU & CONTROL */
+.image-preview-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.image-preview {
+  width: 120px;
+  height: 120px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-around;
+}
+
+.preview-controls button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.2rem;
+}
+
+
+/* VIDEO-VORSCHAU */
+.video-preview {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.video-preview video {
+  max-width: 320px;
+  max-height: 240px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+}
+
+
+/* UPLOAD-PROGRESS & SPINNER */
+.upload-progress {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.upload-progress progress {
+  width: 100%;
+  height: 20px;
+}
+
+/* Spinner für Ladeanimation */
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 0.5rem auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* TOAST-BENACHRICHTEN */
+.toast {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  box-shadow: var(--box-shadow);
+  z-index: 1000;
+}
+
+
+/* SCHRITT 2: GRID-LAYOUT FÜR BILDER & VIDEO */
+.step-2-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Auf kleineren Bildschirmen: Spalten untereinander */
+@media (max-width: 768px) {
+  .step-2-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* UPLOAD-BEREICHE IN SCHRITT 2 */
+.upload-section {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #ddd;
+}
+
+.upload-section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+
+ /* alter button */
+.file-input-hidden {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.file-input-hidden::-webkit-file-upload-button {
+  display: none;
+}
+
+
+/* VIDEO-VORSCHAU & DATEINAM */
+.centered-video {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.centered-video video {
+  max-width: 320px;
+  max-height: 240px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  display: block;
+  margin: 0 auto;
+}
+
+.video-filename {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+
+/* TEXT FÜR BILDER & VIDEO COUNT*/
+.image-count,
+.video-count {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
+  text-align: center;
+}
